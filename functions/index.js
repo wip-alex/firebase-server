@@ -1,16 +1,23 @@
-const functions = require('firebase-functions')
-const next = require('next')
+'use strict';
 
-var dev = process.env.NODE_ENV !== 'production'
-var app = next({ dev, conf: { distDir: 'next' } })
-var handle = app.getRequestHandler()
+var functions = require('firebase-functions');
+var next = require('next');
+var setupGraphQLServer = require('./graphql/server');
 
-exports.next = functions.https.onRequest((req, res) => {
-  console.log('next: ' + req.originalUrl) // log the page.js file that is being requested
-  return app.prepare().then(() => handle(req, res))
-})
+/* CF for Firebase with graphql-server-express */
+var graphQLServer = setupGraphQLServer();
 
-exports.api = functions.https.onRequest((req, res) => {
-  console.log('api: ' + req.originalUrl) // log the page.js file that is being requested
-  return app.prepare().then(() => handle(req, res))
-})
+// https://us-central1-<project-name>.cloudfunctions.net/api
+// export const api = https.onRequest(graphQLServer)
+
+var dev = process.env.NODE_ENV === 'development';
+var app = next({ dev: dev, conf: { distDir: 'next' } });
+var handle = app.getRequestHandler();
+
+exports.next = functions.https.onRequest(function (req, res) {
+  console.log('next: ' + req.originalUrl); // log the page.js file that is being requested
+  return app.prepare().then(function () {
+    if (req.originalUrl === '/graphql') graphQLServer(req, res);
+    handle(req, res);
+  });
+});

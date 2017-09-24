@@ -8,13 +8,27 @@
     "serve": "firebase serve",
     "predeploy": "npm run build-all",
     "deploy": "firebase deploy",
-    "build-all": "npm run build-next && npm run build-firebase",
+    "format": "prettier --write \"functionsES6/**/*{.js, .json}\" && sort-package-json",
+    "build-all": "npm i;npm run build-next && npm run build-firebase",
+    "prebuild-next": "rimraf functions;mkdir -p ./functions",
     "build-next": "cd \"app\" && npm i && npm run build",
+    "prebuild-firebase": "babel \"functionsES6\" --out-dir \"functions\" --copy-files --ignore \"node_modules\"",
     "build-firebase": "cd \"functions\" && npm i"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.15.4",
     "next": "^3.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.1",
+    "prettier": "^1.7.0",
+    "rimraf": "^2.6.2",
+    "sort-package-json": "^1.7.1"
   }
 }
