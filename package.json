@@ -5,7 +5,7 @@
   "scripts": {
     "login": "firebase login --no-localhost",
     "next": "npm run build-firebase && cd \"app\" && npm i && npm run dev",
-    "preserve": "npm run build-all",
+    "build": "npm run build-all",
     "serve": "firebase serve",
     "predeploy": "npm run build-all",
     "deploy": "firebase deploy",
