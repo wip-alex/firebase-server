@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Host Next.js SSR app on Firebase Cloud Functions with Firebase Hosting redirects.",
   "scripts": {
+    "login": "firebase login --no-localhost",
     "next": "npm run build-firebase && cd \"app\" && npm i && npm run dev",
     "preserve": "npm run build-all",
     "serve": "firebase serve",
@@ -16,19 +17,19 @@
     "build-firebase": "cd \"functions\" && npm i"
   },
   "dependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "express": "^4.15.4",
-    "next": "^3.2.2",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "express": "4.15.4",
+    "next": "3.2.2",
+    "react": "15.6.1",
+    "react-dom": "15.6.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.2.1",
-    "prettier": "^1.7.0",
-    "rimraf": "^2.6.2",
-    "sort-package-json": "^1.7.1"
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.0",
+    "babel-preset-es2015": "6.24.1",
+    "husky": "0.14.3",
+    "lint-staged": "4.2.1",
+    "prettier": "1.7.0",
+    "rimraf": "2.6.2",
+    "sort-package-json": "1.7.1"
   }
 }
